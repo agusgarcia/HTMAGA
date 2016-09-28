@@ -1,0 +1,157 @@
+/******** Half Backgrounds *********/
+.blue-bg {
+  position: absolute;
+  background-color: $blue;
+  height: 340vh;
+  width: 61vw;
+  top: -280px;
+  transform: rotate(-15deg);
+  transition: width 0.5s ease-in;
+  z-index: 1;
+
+  &.darker {
+    background-color: $blue-dark;
+  }
+
+  &.opened {
+    width: 150vw;
+  }
+}
+
+.red-bg {
+  position: absolute;
+  background-color: $red;
+  height: 340vh;
+  width: 86vw;
+  top: -260px;
+  transition: width 0.5s ease-in;
+  transform: rotate(165deg);
+  left: 61vw;
+
+  &.darker {
+    background-color: $red-dark;
+  }
+
+}
+
+/******** Intro / Texts *********/
+
+#intro {
+  position: relative;
+  overflow: hidden;
+  &:hover {
+    .blue-bg:not(:hover) {
+      background-color: $blue-dark;
+    }
+    .red-bg:not(:hover) {
+      background-color: $red-dark;
+    }
+  }
+}
+
+.intro {
+  &_title {
+    font-weight: 300;
+    font-size: 50px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    text-transform: uppercase;
+    pointer-events: none;
+    margin-top: 100px;
+    transform: translateY(-100vh);
+    transition: transform 0.5s $bezier;
+    p:first-child {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-transform: initial;
+    }
+    p:nth-child(2) {
+      font-size: 0;
+      transition: font-size 0.5s $bezier 0.7s;
+      margin-top: -50px;
+    }
+
+    p:nth-child(3) {
+      width: 160px;
+      margin: auto;
+      padding: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      border: 2px dashed white;
+      transition: transform 0.5s $bezier;
+      transform: translateY(-100vh);
+
+      &.appear {
+        transform: translateY(0);
+        animation: blink 500ms infinite alternate;
+      }
+    }
+
+    &.appear {
+      transform: translateY(0);
+
+      p:nth-child(2) {
+        font-size: 60px;
+
+      }
+    }
+  }
+}
+
+/******** Heads *********/
+
+.head {
+  position: fixed;
+  bottom: 45px;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  transform: translateY(-150vh);
+  transition: transform 0.5s $bezier;
+  cursor: pointer;
+  z-index: 1;
+
+  img {
+    width: 150px;
+    height: auto;
+    &:hover {
+      animation: bounce 300ms infinite alternate linear;
+    }
+  }
+
+  &.appear {
+    transform: translate(0);
+  }
+
+
+  .quote {
+    max-width: 190px;
+    margin: 25px 5px;
+    font-size: 25px;
+    transition: transform 0.3s $bezier;
+
+    &.disappear {
+      transform: rotate(90deg);
+      transform-origin: -100px 80px;
+    }
+  }
+
+  &-hillary {
+    left: 5%;
+    .quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+  }
+
+  &-trump {
+    right: 5%;
+    justify-content: flex-end;
+
+    .quote {
+      font-weight: 900;
+      text-align: right;
+    }
+  }
+}
