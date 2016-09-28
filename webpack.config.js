@@ -1,24 +1,31 @@
-'use strict';
-
 var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var styleLintPlugin = require('stylelint-webpack-plugin');
+// var UglifyJsPlugin = require('webpack-uglify-js-plugin');
+var fileloader = require('file-loader');
 
 require('es6-promise').polyfill();
 
 module.exports = {
-  entry: './src/main.js',
+  entry: ['./src/scripts/main.js'],
 
   output: {
-    path: __dirname,
-    filename: 'js/app.js'
+    path: path.join(__dirname, '/web/'),
+    filename: 'scripts/script.js',
   },
 
   plugins: [
     // Specify the resulting CSS filename
-    new ExtractTextPlugin('css/app.css'),
+    new ExtractTextPlugin('styles/main.css'),
+
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+    }),
+
+    new webpack.OldWatchingPlugin(),
 
     // Stylelint plugin
     new styleLintPlugin({
@@ -28,7 +35,20 @@ module.exports = {
       syntax: 'scss',
       failOnError: false,
       quiet: false
-    })
+    }),
+
+    /*    Minification JS/CSS
+     new UglifyJsPlugin({
+     cacheFolder: path.join(__dirname, 'web/front/cache'),
+     debug: false,
+     minimize: true,
+     output: {
+     comments: false
+     },
+     compressor: {
+     warnings: false
+     }
+     }),*/
   ],
 
   module: {
@@ -36,15 +56,20 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+
       },
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader!postcss!sass-loader?outputStyle=expanded'
+            'style-loader',
+            'css-loader!postcss!sass-loader?outputStyle=expanded'
         )
-      }
+      },
+      {
+        test: /\.(png|svg|jpg)$/,
+        loader: 'fileloader?name=./../images/[name].[ext]'
+      },
     ]
   },
 
@@ -58,7 +83,9 @@ module.exports = {
     // Colored output
     colors: true
   },
-
+  node: {
+    fs: "empty"
+  },
   // Create Sourcemaps for the bundle
   devtool: 'source-map'
 };
