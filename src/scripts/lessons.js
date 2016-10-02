@@ -5,9 +5,8 @@ import fullpage from 'fullpage.js';
 export default class Lessons {
 
     constructor() {
-        console.log('Project Concept');
+        console.log('Lessons');
 
-        //console.log('assign', typeof Object.assign, assign);
         if (typeof Object.assign == 'undefined') {
             //console.log('polyfill launch');
             assign.polyfill();
@@ -15,11 +14,7 @@ export default class Lessons {
 
         this.initEls();
         this.initEvents();
-        //this.initAnimations();
 
-        setTimeout(() => {
-            this.initAnimationStep1();
-        }, 500);
     }
 
     initEls() {
@@ -27,78 +22,163 @@ export default class Lessons {
         this.$els = {
             $body: $('body'),
             $fullpage: $('#fullpage'),
-            $introText: $('.intro_title'),
-            $introTextChoose: $('.intro_title p:nth-child(3)'),
-            $heads: $('.head'),
             $hillaryHead: $('.head-hillary'),
             $trumpHead: $('.head-trump'),
-            $redBg: $('.red-bg'),
-            $blueBg: $('.blue-bg')
-        }
+            $facepalmHillary: $('.head-facepalm-hillary'),
+            $facepalmTrump: $('.head-facepalm-trump'),
+            $understoodButton: $('.btn-understood'),
+            $nextButton: $('.btn-next'),
+            $gifs: $('.gif-quiz'),
+            $gifContainer: $('.gif-container'),
+        };
 
-        this.hillaryQuote = this.$els.$hillaryHead.find('.quote');
+        this.currentPerson = "";
+        this.lessonNumber = 0;
+        this.hillaryLessons = 5;
+        this.hillaryFinal = this.hillaryLessons + 2;
 
+        //Arrays of gifs and phrases
+        this.hillaryRightGif = [];
+        this.hillaryWrongGif = [];
+        this.trumpRightGif = [];
+        this.trumpWrongGif = [];
+        this.hillaryRightPhrase = ["Yes! Right answer", "I knew you would be right", "That's the attitude", "Your're doing right", "We make a great team"];
+        this.hillaryWrongPhrase = ["You're wrong darling", "Bad answer...", "You have to do better next time", "That's not what I teached you"];
+        this.trumpRightPhrase = ["Finally you're not that stupid", "Right answer son 😎", "Well done!", "You won't be fired"];
+        this.trumpWrongPhrase = ["YOU'RE FIRED 😠", "You're a looser", "Are you serious?", "You disappoint me"];
+        this.gifResult = "";
     }
 
     initEvents() {
 
-        this.$els.$fullpage.fullpage({
-            scrollingSpeed: 700,
-            scrollBar: false,
+        this.$els.$understoodButton.on('click', this.goToTest.bind(this));
+        this.$els.$nextButton.on('click', this.goToNext.bind(this));
 
-            onLeave: function (index, nextIndex, direction) {
-                if (index == 1) {
-                    //   this.leaveIntro();
+        this.$els.$gifs.on('click', this.verifyAnswer.bind(this));
+
+        //Populate arrays of gifs
+        for (let i = 1; i < 8; i++) {
+            this.hillaryRightGif.push("/web/images/gifs/hillary_right_" + i + ".gif");
+        }
+
+        for (let i = 1; i < 3; i++) {
+            this.hillaryWrongGif.push("/web/images/gifs/hillary_wrong_" + i + ".gif");
+        }
+
+        for (let i = 1; i < 5; i++) {
+            this.trumpRightGif.push("/web/images/gifs/trump_right_" + i + ".gif");
+        }
+
+        for (let i = 1; i < 5; i++) {
+            this.trumpWrongGif.push("/web/images/gifs/trump_wrong_" + i + ".gif");
+        }
+
+    }
+
+
+
+    goToTest() {
+        this.lessonNumber++;
+        if (this.currentPerson == 'hillary') {
+            this.$els.$hillaryHead.addClass('spying');
+        } else if (this.currentPerson == 'trump') {
+            this.$els.$trumpHead.addClass('spying');
+        }
+        this.$els.$fullpage.fullpage.moveSlideRight();
+    }
+
+    goToNext() {
+
+        if (this.currentPerson == 'hillary') {
+            this.$els.$facepalmHillary.removeClass('appear');
+        } else if (this.currentPerson == 'trump') {
+            this.$els.$facepalmTrump.removeClass('appear');
+        }
+
+        this.$els.$fullpage.fullpage.moveSectionDown();
+
+    }
+
+    verifyAnswer(e) {
+
+        if (this.currentPerson == "hillary") {
+            this.$els.$hillaryHead.removeClass('spying');
+        } else if (this.currentPerson == "trump") {
+            this.$els.$trumpHead.removeClass('spying');
+        }
+
+        this.currentLessonSelector = $('.lesson-' + this.lessonNumber + '.lesson-' + this.currentPerson);
+
+        this.gifResult = this.currentLessonSelector.siblings().find('.gif-result');
+        this.phraseResult = this.currentLessonSelector.siblings('.result').find('.title');
+
+        console.log(this.phraseResult);
+        this.answer = e.target.classList.contains('gif-' + this.currentPerson);
+
+        this.gifResult.attr('src', this.getGif.bind(this));
+        this.phraseResult.html(this.getPhrase.bind(this));
+
+        this.$els.$fullpage.fullpage.moveSlideRight();
+
+    }
+
+    //Generate a random gif and phrase according to character and the answer
+    getGif() {
+        let array;
+
+        switch (this.currentPerson) {
+            case "hillary":
+                if (this.answer == true) {
+                    array = this.hillaryRightGif;
+                } else if (this.answer == false) {
+                    array = this.hillaryWrongGif;
+                    this.$els.$facepalmHillary.addClass('appear');
                 }
+                break;
 
-                if (nextIndex == 1) {
-                    // this.goToIntro();
+            case "trump":
+                if (this.answer == true) {
+                    array = this.trumpRightGif;
+                } else if (this.answer == false) {
+                    array = this.trumpWrongGif;
+                    this.$els.$facepalmTrump.addClass('appear');
                 }
-            }.bind(this)
+                break;
+        }
 
-        });
+        let randomNumber = Math.floor((Math.random() * array.length - 1) + 1);
 
-        this.$els.$hillaryHead.on("mouseenter", this.darkenBackgroundRed.bind(this));
-        this.$els.$hillaryHead.on("mouseleave", this.darkenBackgroundRed.bind(this));
-        this.$els.$trumpHead.on("mouseenter", this.darkenBackgroundBlue.bind(this));
-        this.$els.$trumpHead.on("mouseleave", this.darkenBackgroundBlue.bind(this));
+        return array[randomNumber]
 
-        this.$els.$hillaryHead.on("click", this.startHillary.bind(this));
     }
 
-    initAnimationStep1() {
-        this.$els.$introText.addClass('appear').delay(1200).queue(() => {
-            this.$els.$hillaryHead.addClass('appear').delay(300).queue(() => {
-                this.$els.$trumpHead.addClass('appear').delay(300).queue(() => {
-                    this.$els.$introTextChoose.addClass('appear').dequeue();
-                });
-            });
-        });
+    getPhrase() {
+        let array;
+
+        switch (this.currentPerson) {
+            case "hillary":
+                if (this.answer == true) {
+                    array = this.hillaryRightPhrase;
+                } else if (this.answer == false) {
+                    array = this.hillaryWrongPhrase;
+                }
+                break;
+
+            case "trump":
+                if (this.answer == true) {
+                    array = this.trumpRightPhrase;
+                } else if (this.answer == false) {
+                    array = this.trumpWrongPhrase;
+                }
+                break;
+        }
+
+        let randomNumber = Math.floor((Math.random() * array.length - 1) + 1);
+
+        console.log(array[randomNumber]);
+        return array[randomNumber]
     }
 
-    startLessons() {
-        console.log("hello");
-    }
-
-    darkenBackgroundBlue() {
-        this.$els.$blueBg.toggleClass('darker');
-    }
-
-    darkenBackgroundRed() {
-        this.$els.$redBg.toggleClass('darker');
-    }
-
-    startHillary() {
-        this.hillaryQuote.addClass('disappear').delay(200).queue(() => {
-            this.$els.$trumpHead.removeClass('appear').delay(400).dequeue().queue(() => {
-                this.$els.$blueBg.addClass('opened').delay(600).dequeue().queue(() => {
-                    this.$els.$body.addClass('blue').dequeue();
-                    this.$els.$fullpage.fullpage.silentMoveTo(2);
-                    this.$els.$fullpage.fullpage.moveTo(3);
-                });
-            });
-        });
-    }
 }
 
 

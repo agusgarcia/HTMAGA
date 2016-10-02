@@ -1,0 +1,220 @@
+/******** Half Backgrounds *********/
+.blue-bg {
+  position: absolute;
+  background-color: $blue;
+  background: $blue-gradient;
+  height: 340vh;
+  width: 61vw;
+  top: -350px;
+  transform: rotate(-15deg);
+  transition: width 0.5s $bezier;
+  z-index: $z-index-background;
+  background-image: url($image-path + "dirty.png"), $blue-gradient;
+
+
+  &.darker {
+    background-color: $blue-dark;
+    background: $blue-dark-gradient;
+    background-image: url($image-path + "dirty.png"), $blue-dark-gradient;
+  }
+
+  &.hide {
+    display: none;
+  }
+
+  &.opened {
+    z-index: 1;
+    width: 150vw;
+  }
+}
+
+.red-bg {
+  position: absolute;
+  background-color: $red;
+  height: 310vh;
+  width: 150vw;
+  top: -310px;
+  transition: left 0.3s $bezier;
+  transform: rotate(165deg);
+  left: 61vw;
+  background-image: url($image-path + "dirty.png"), $red-gradient;
+z-index: $z-index-background;
+  &.hide {
+    display: none;
+  }
+  &.darker {
+    background-color: $red-dark;
+    background-image: url($image-path + "dirty.png"), $red-dark-gradient;
+
+  }
+  &.opened {
+    left: 0;
+  }
+
+}
+
+/******** Intro / Texts *********/
+
+#intro {
+  &:hover {
+    .blue-bg:not(:hover) {
+      background-color: $blue-dark;
+     // background: $blue-dark-gradient;
+      background-image: url($image-path + "dirty.png"), $blue-dark-gradient;
+
+    }
+    .red-bg:not(:hover) {
+      background-color: $red-dark;
+      background-image: url($image-path + "dirty.png"), $red-dark-gradient;
+    }
+  }
+}
+
+.intro {
+  &_title {
+    font-weight: 300;
+    font-size: 50px;
+    text-align: center;
+    //position: relative;
+    z-index: $z-index-over-background;
+    text-transform: uppercase;
+    pointer-events: none;
+    margin-top: -200px;
+    transform: translateY(-100vh);
+    transition: transform 0.5s $bezier, opacity 0.3s $bezier;
+
+    p:first-child {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      text-transform: initial;
+    }
+
+    p:nth-child(2) {
+      font-size: 0;
+      transition: font-size 0.5s $bezier 0.7s;
+      margin-top: -50px;
+    }
+    p:nth-child(3) {
+      width: 160px;
+      margin: auto;
+      padding: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      border: 2px dashed white;
+      transition: transform 0.5s $bezier;
+      transform: translateY(-100vh);
+
+      &.appear {
+        transform: translateY(0);
+        animation: blink .5s infinite alternate 1s;
+      }
+    }
+
+    &.hide {
+      opacity: 0;
+    }
+
+    &.appear {
+      transform: translateY(0);
+
+      p:nth-child(2) {
+        font-size: 60px;
+
+      }
+    }
+  }
+}
+
+/******** Heads *********/
+
+.head {
+  position: fixed;
+  bottom: 45px;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  transform: translateY(-150vh);
+  transition: transform 0.5s $bezier, bottom 0.5s $bezier;
+  cursor: pointer;
+  z-index: $z-index-over-background;
+
+  &:hover {
+    img {
+      animation: bounce 300ms infinite alternate linear;
+    }
+    img.facepalm {
+      animation: none;
+    }
+  }
+
+  img {
+    width: 150px;
+    height: auto;
+    transition: width 0.5s ease-in;
+  }
+
+  img.facepalm {
+    width: 245px;
+    margin-left: -2px;
+    margin-bottom: -58px;
+    transition: none;
+  }
+
+  &.appear {
+    transform: translate(0);
+  }
+
+  &.big {
+    img {
+      width: 200px;
+    }
+
+    .facepalm {
+      width: 245px;
+      margin-left: 0;
+      margin-bottom: -58px;
+    }
+  }
+
+  &.spying {
+    bottom: -93px;
+  }
+
+  .quote {
+    max-width: 190px;
+    margin: 25px 5px;
+    font-size: 25px;
+    transition: transform 0.3s $bezier, max-height 0.1s 1s, max-width 0.1s 1s;
+
+    &.disappear {
+      transform: rotate(90deg);
+      transform-origin: -100px 80px;
+      max-height: 0;
+      max-width: 0;
+    }
+  }
+
+  &-hillary {
+    left: 5%;
+    .quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+  }
+
+  &-trump, &-facepalm-trump {
+    right: 5%;
+    justify-content: flex-end;
+
+    .quote {
+      font-weight: 900;
+      text-align: right;
+    }
+
+    img.facepalm {
+      width: 285px;
+      margin-right: -91px;
+      margin-bottom: -64px;
+    }
+  }
+}

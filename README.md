@@ -1,46 +1,29 @@
-# webpack sample project 
+# How to make America great again
  
-Sample webpack project with ES6 and Sass. Also includes Sass linting setup with [stylelint](https://github.com/stylelint/stylelint) and [stylelint-selector-bem-pattern](https://github.com/davidtheclark/stylelint-selector-bem-pattern), to enforce BEM patterns for selectors.
+ ## Le concept
 
-This is a basic setup that only includes two main app files for demo purposes: `./src/main.js` and `./src/main.scss`. You get the idea.
+ 
+Le but de ce site web est d'apprendre à chaque américain comment "rendre leur pays génial à nouveau". 
 
-There's nothing in this setup that hasn't been done earlier by other people (see credits section for more advanced configuration).
-This project might be useful when quick (local) development setup is needed, to play with new stuff.
+Dans un premier temps, ils devront choisir leur "team", c'est-à-dire, Hillary Clinton ou Donald Trump. 
 
-For sample jspm and SystemJS project setup, you might want to take a look at https://github.com/akikoo/systemjs-jspm-setup.
+Ensuite, selon le candidat choisi, ils suivront une série de leçons accompagnées d'un test afin de vérifier s'ils ont bien "compris". 
 
-## Environment setup 
+Le contenu des leçons est divers, pouvant porter sur les opinions politiques de chaque candidat à la présidence ou sur leur vie privée. 
+
+Le tout est animé par des gifs, mêlant réalité et fantaisie (images réelles / montages).  
+
+
+## Installation des packages 
 
 ```sh
   $ npm install
 ```
 
-## Development
-
-Start the Webpack server (includes live reloading when you change files):
+## Compilation des sources
 
 ```sh
   $ npm start
 ```
 
-Open [http://localhost:3001](http://localhost:3001) in a browser. `./src/main.js` is the entry point.
-
-## Sass linting
-
-[Stylelint](http://stylelint.io/) is used to enforce consistent conventions and avoid errors in stylesheets.
-`.stylelintrc` configuration file contains all the available rules for completeness, with the ones that I don't currently need turned off (set to `null`).
-I've edited the options of each rule to my liking, based mostly on [stylelint example config](http://stylelint.io/user-guide/example-config/) and [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard).
-For more info, see [stylelint rules documentation](https://github.com/stylelint/stylelint/blob/master/docs/user-guide/rules.md).
-
-## Bundling 
-
-```sh
-  $ npm run bundle
-```
-
-## Credits
-
-- https://github.com/rauschma/webpack-es6-demo
-- https://github.com/srn/react-webpack-boilerplate
-- https://css-tricks.com/stylelint/
-- ...and probably many others too
+Et ouvrir [http://localhost:3002](http://localhost:3002) 

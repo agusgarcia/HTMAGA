@@ -9,14 +9,16 @@ var fileloader = require('file-loader');
 require('es6-promise').polyfill();
 
 module.exports = {
+
   entry: ['./src/scripts/main.js'],
 
   output: {
-    path: path.join(__dirname, '/web/'),
+    path: './web',
     filename: 'scripts/script.js',
   },
 
   plugins: [
+
     // Specify the resulting CSS filename
     new ExtractTextPlugin('styles/main.css'),
 
@@ -37,18 +39,6 @@ module.exports = {
       quiet: false
     }),
 
-    /*    Minification JS/CSS
-     new UglifyJsPlugin({
-     cacheFolder: path.join(__dirname, 'web/front/cache'),
-     debug: false,
-     minimize: true,
-     output: {
-     comments: false
-     },
-     compressor: {
-     warnings: false
-     }
-     }),*/
   ],
 
   module: {
@@ -68,7 +58,7 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg)$/,
-        loader: 'fileloader?name=./../images/[name].[ext]'
+        loader: 'file-loader?name=./../images/[name].[ext]'
       },
     ]
   },

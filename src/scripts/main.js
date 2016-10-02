@@ -5,6 +5,7 @@ import '../styles/main.scss';
 
 
 //Pages Classes
+import Intro from './intro.js'
 import Lessons from './lessons.js'
 
 export default class app {
@@ -27,7 +28,7 @@ export default class app {
     }
 
     launchPage() {
-        this.controllerPage = new Lessons();
+        this.controllerPage = new Intro();
     }
 
 }

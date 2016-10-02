@@ -1,6 +1,25 @@
 $red: #ff2c2c;
-$red-dark: #b51f1f;
+$red-dark: #c82222;
+$red-darker: #9b1e1e;
 $blue: #1849ff;
 $blue-dark: #1134b5;
+$blue-darker: #0f2c76;
+$yellow: #fcc727;
+
+$white: #ffffff;
+
+$red-gradient: linear-gradient(135deg, $red 0%, $red-dark 100%);
+$red-dark-gradient: linear-gradient(135deg, $red-dark 0%, $red-darker 100%);
+
+$blue-gradient: linear-gradient(135deg, $blue 0%, $blue-dark 100%);
+$blue-dark-gradient: linear-gradient(135deg, $blue-dark 0%, $blue-darker 100%);
 
 $bezier: cubic-bezier(.69, .03, 0, 1.16);
+
+$z-index-background: 0;
+$z-index-over-background: 2;
+
+$playfair: 'Playfair Display', serif;
+$raleway: 'Raleway', sans-serif;
+
+$image-path: "~/web/images/"

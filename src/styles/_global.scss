@@ -1,16 +1,46 @@
 body {
   font-family: "Raleway", sans-serif;
   color: white;
-  background-color: $red;
+  background-size: contain;
+  background-image: url("../../web/images/dirty.png"), $red-gradient;
   &.blue {
-    background-color: $blue;
+    //background: $blue-gradient;
+    background-image: url("../../web/images/dirty.png"), $blue-gradient;
+  }
+  &.hidden {
+    #fullpage{
+      display: none;
+    }
   }
 }
 
-.bolder {
-  font-weight:900;
+.bold {
+  font-weight: 600;
 }
 
+.bolder {
+  font-weight: 900;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.btn {
+  padding: 13px;
+  font-family: $raleway;
+  font-size: 22px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: 2px dashed white;
+  transition: background-color 0.3s $bezier;
+  color: #fff;
+  background-color: transparent;
+
+  &:hover {
+    background: $red url($image-path + "dirty.png");
+  }
+}
 
 @keyframes blink {
   from {
@@ -23,9 +53,9 @@ body {
 
 @keyframes bounce {
   from {
-    transform: rotateZ(0deg);
+    transform: rotateZ(-10deg);
   }
   to {
-    transform: rotateZ(15deg);
+    transform: rotateZ(10deg);
   }
 }
