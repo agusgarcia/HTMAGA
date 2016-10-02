@@ -58,19 +58,19 @@ export default class Lessons {
 
         //Populate arrays of gifs
         for (let i = 1; i < 8; i++) {
-            this.hillaryRightGif.push("/web/images/gifs/hillary_right_" + i + ".gif");
+            this.hillaryRightGif.push("./web/images/gifs/hillary_right_" + i + ".gif");
         }
 
         for (let i = 1; i < 3; i++) {
-            this.hillaryWrongGif.push("/web/images/gifs/hillary_wrong_" + i + ".gif");
+            this.hillaryWrongGif.push("./web/images/gifs/hillary_wrong_" + i + ".gif");
         }
 
         for (let i = 1; i < 5; i++) {
-            this.trumpRightGif.push("/web/images/gifs/trump_right_" + i + ".gif");
+            this.trumpRightGif.push("./web/images/gifs/trump_right_" + i + ".gif");
         }
 
         for (let i = 1; i < 5; i++) {
-            this.trumpWrongGif.push("/web/images/gifs/trump_wrong_" + i + ".gif");
+            this.trumpWrongGif.push("./web/images/gifs/trump_wrong_" + i + ".gif");
         }
 
     }
