@@ -1,6 +1,6 @@
 # How to make America great again
  
- ## Le concept
+## Le concept
 
  
 Le but de ce site web est d'apprendre à chaque américain comment "rendre leur pays génial à nouveau". 
