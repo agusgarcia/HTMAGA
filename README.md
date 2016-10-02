@@ -26,4 +26,8 @@ Le tout est animé par des gifs, mêlant réalité et fantaisie (images réelles
   $ npm start
 ```
 
-Et ouvrir [http://localhost:3002](http://localhost:3002) 
+Et ouvrir [http://localhost:3002](http://localhost:3002)
+ 
+ ---
+ 
+ En cas de problèmes de compilation : [http://agusgarcia.com/htmaga/](http://agusgarcia.com/htmaga/)
